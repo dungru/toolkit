@@ -29,6 +29,9 @@ CFLAGS += -I./ \
 C_SOURCES += quick-sort.c
 ##### OBJECTS #####
 OBJECTS += $(patsubst %.c, %.o, $(C_SOURCES))
+
+deps += $(OBJECTS:.o=.d)
+
 all: $(BIN_IMAGE) $(C_SOURCES)
 
 %.o: %.c
@@ -37,7 +40,7 @@ all: $(BIN_IMAGE) $(C_SOURCES)
 $(BIN_IMAGE): $(OBJECTS)
 	$(CC) -Wall -g $(C_SOURCES) -o $@ $(CFLAGS)
 
--include $(OBJECTS:.o=.d)
+-include $(deps)
 
 .PHONY : clean
 clean:
