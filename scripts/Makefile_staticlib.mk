@@ -33,7 +33,7 @@ OBJ_FILES = $(C_SOURCES:%.c=$(BUILD_DIR)/%.o)
 DEP_FILES = $(OBJ_FILES:%.o=%.d)
 
 # FLAGS HANDLE
-CFLAGS = -Wall -g -fPIC -std=c99 -pedantic -W -Werror -D_GNU_SOURCE
+CFLAGS = -Wall -g -fPIC -std=gnu99 -pedantic -W -Werror -D_GNU_SOURCE
 CFLAGS += -Wno-unused-function
 # For *.s and *.i
 CFLAGS += -save-temps=obj
