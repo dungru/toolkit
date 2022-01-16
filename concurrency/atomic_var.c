@@ -21,7 +21,6 @@ void *thread(void *vargp) {
         cnt++;
         mycnt.cntA++;
     }
-        
     return NULL;
 }
 
