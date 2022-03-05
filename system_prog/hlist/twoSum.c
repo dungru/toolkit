@@ -69,11 +69,13 @@ void map_add(map_t *map, int key, void *data)
 
     struct hlist_head *h = &map->ht[hash(key, map->bits)];
     struct hlist_node *n = &kn->node, *first = h->first;
-    AAA;
+    //AAA;
+    n->next = first;
     if (first)
         first->pprev = &n->next;
     h->first = n;
-    BBB;
+    //BBB;
+    n->pprev = &h->first;
 }
 
 void map_deinit(map_t *map)
