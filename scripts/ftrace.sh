@@ -2,27 +2,31 @@
 prepare_val=0
 filter_val=0
 trace_val=0
-while getopts ":pdt:" option; do
+
+comment_prepare="[-p ftrace prepare]"
+comment_filter="[-f hook the driver filter]"
+comment_trace="[-t 0/1 trace enable]"
+
+
+while getopts ":pft:" option; do
     case "${option}" in
         p)
             prepare_val=1
             ;;
-        d)
+        f)
             filter_val=1
             ;;
         t)
             trace_val=1
             trace_on="$OPTARG"
+            echo "trace_on=$trace_on"
             ;;
         :)
             echo "Error: -${OPTARG} requires an argument"
             exit 1
             ;;
         *)
-            echo "Usage: $(basename $0) \
-                [-p ftrace prepare] \
-                [-f ftrace filter] \
-                [-t trace on/off]"
+            echo "Usage: $(basename $0) $comment_prepare $comment_filter $comment_trace"
             exit 1
             ;;
     esac
@@ -42,7 +46,7 @@ if [ $prepare_val -eq 1 ]; then
 fi
 # Set ftrace filter
 if [ $prepare_val -eq 1 ]; then
-    echo :mod:wlan_mt76xxpcie > /sys/kernel/debug/tracing/set_ftrace_filter
+    echo :mod:wlan_mt7923_pcie > /sys/kernel/debug/tracing/set_ftrace_filter
     echo function_graph > /sys/kernel/debug/tracing/current_tracer
 fi
 
